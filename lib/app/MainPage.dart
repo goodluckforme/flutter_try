@@ -89,6 +89,6 @@ class MainPagePageState extends State<MainPage> {
   }
 
   void doubeClick() {
-
+    print("我被双击了!");
   }
 }
