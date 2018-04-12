@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo/app/home/NicePage.dart';
 
 class FirstPage extends StatefulWidget {
+  final userName;
+
+  FirstPage(this.userName);
+
   @override
   State<StatefulWidget> createState() => new FirstPageState();
+
 }
 
 class FirstPageState extends State<StatefulWidget>
@@ -25,6 +30,7 @@ class FirstPageState extends State<StatefulWidget>
     new NicePage()
   ];
 
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +47,7 @@ class FirstPageState extends State<StatefulWidget>
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("ReadHub"),
+        title: new Text("首页"),
         bottom: new TabBar(
           tabs: titleList,
           controller: controller,

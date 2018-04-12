@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/app/FirstPage.dart';
 
 class MainPage extends StatefulWidget {
   final String title;
@@ -23,10 +24,10 @@ class MainPagePageState extends State<MainPage> {
           direction: Axis.horizontal,
           alignment: WrapAlignment.start,
           children: <Widget>[
-            new Text("我是来看看 对其方式的我是来看看 对其方式的我是来看看 对其方式的\n",
+            new Text("这只是一个启动页你信吗?\n",
               overflow: TextOverflow.ellipsis, maxLines: 1,),
             new Center(
-              child: new Text("对其方式的",
+              child: new Text("对齐方式",
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.right,
                 style: new TextStyle(
@@ -61,6 +62,32 @@ class MainPagePageState extends State<MainPage> {
                         child: new Text("我是来占位置的")
                     ))
             ),
+            new Builder(builder: (BuildContext context) {
+              return new RaisedButton(
+                  onPressed: () {
+                    var userName = "密码";
+                    var passWord = "密码";
+                    if (userName == passWord) {
+                      Navigator.of(context).push(new PageRouteBuilder(
+                          pageBuilder: (BuildContext context,
+                              Animation<double> animation,
+                              Animation<double> secondaryAnimation) {
+                            return new FirstPage(userName);
+                          }));
+                    } else {
+                      Scaffold.of(context).showSnackBar(
+                          new SnackBar(content: new Text("登录失败，用户名密码有误")));
+                    }
+                    onTextClear();
+                  },
+                  color: Colors.blue,
+                  highlightColor: Colors.lightBlueAccent,
+                  disabledColor: Colors.lightBlueAccent,
+                  child: new Text(
+                    "登录",
+                    style: new TextStyle(color: Colors.white),
+                  ));
+            })
           ]),
       floatingActionButton: new FloatingActionButton(
         onPressed: _incrementCounter,
@@ -90,5 +117,11 @@ class MainPagePageState extends State<MainPage> {
 
   void doubeClick() {
     print("我被双击了!");
+//    Navigator.of(context).pop();
+    Navigator.of(context).pushNamed("/NicePage");
+  }
+
+  void onTextClear() {
+    Navigator.of(context).pushNamed("/WebPage");
   }
 }
