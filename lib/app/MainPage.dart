@@ -77,8 +77,8 @@ class MainPagePageState extends State<MainPage> {
                     } else {
                       Scaffold.of(context).showSnackBar(
                           new SnackBar(content: new Text("登录失败，用户名密码有误")));
+                      onTextClear();
                     }
-                    onTextClear();
                   },
                   color: Colors.blue,
                   highlightColor: Colors.lightBlueAccent,
@@ -122,6 +122,6 @@ class MainPagePageState extends State<MainPage> {
   }
 
   void onTextClear() {
-    Navigator.of(context).pushNamed("/WebPage");
+    Navigator.of(context).pushNamed("/DetaillPage");
   }
 }
