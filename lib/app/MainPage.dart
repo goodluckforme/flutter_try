@@ -26,14 +26,18 @@ class MainPagePageState extends State<MainPage> {
           children: <Widget>[
             new Text("这只是一个启动页你信吗?\n",
               overflow: TextOverflow.ellipsis, maxLines: 1,),
-            new Center(
-              child: new Text("对齐方式",
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.right,
-                style: new TextStyle(
-                  letterSpacing: 10.0,
-                ),),
+            new GestureDetector(
+              onTap: showToast,
+              child: new Center(
+                child: new Text("对齐方式",
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
+                  style: new TextStyle(
+                    letterSpacing: 10.0,
+                  ),),
+              ),
             ),
+
             new GestureDetector(
                 onTap: buttonClick,
                 onDoubleTap: doubeClick,
@@ -124,4 +128,22 @@ class MainPagePageState extends State<MainPage> {
   void onTextClear() {
     Navigator.of(context).pushNamed("/DetaillPage");
   }
+
+  void showToast() {
+    showDialog<Null>(
+        context: context,
+        child: new AlertDialog(
+            content: new Text("showDialog"),
+            actions: <Widget>[
+              new FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: new Text('确定')
+              )
+            ]
+        )
+    );
+  }
 }
+

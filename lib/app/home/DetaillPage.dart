@@ -19,3 +19,4 @@ class DetaillPageState extends State<StatefulWidget> {
     );
   }
 }
+
