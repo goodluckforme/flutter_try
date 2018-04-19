@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/app/FirstPage.dart';
+import 'package:flutter_demo/app/home/DetaillPage.dart';
+import 'package:flutter_demo/app/widget/MuchDrawer.dart';
 
 class MainPage extends StatefulWidget {
   final String title;
@@ -19,6 +21,9 @@ class MainPagePageState extends State<MainPage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
+      ),
+      drawer: new Drawer(
+        child: new MuchDrawer(),
       ),
       body: new Wrap(
           direction: Axis.horizontal,
@@ -69,8 +74,8 @@ class MainPagePageState extends State<MainPage> {
             new Builder(builder: (BuildContext context) {
               return new RaisedButton(
                   onPressed: () {
-                    var userName = "密码";
-                    var passWord = "密码";
+                    var userName = "1234";
+                    var passWord = "123";
                     if (userName == passWord) {
                       Navigator.of(context).push(new PageRouteBuilder(
                           pageBuilder: (BuildContext context,
@@ -121,12 +126,18 @@ class MainPagePageState extends State<MainPage> {
 
   void doubeClick() {
     print("我被双击了!");
-//    Navigator.of(context).pop();
+    //Navigator.of(context).pop();
     Navigator.of(context).pushNamed("/NicePage");
   }
 
   void onTextClear() {
-    Navigator.of(context).pushNamed("/DetaillPage");
+    //Navigator.of(context).pushNamed("/DetaillPage");
+    Navigator.of(context).push(
+        new PageRouteBuilder(
+            pageBuilder: (_, __, ___) {
+              return new DetaillPage("马齐", "https://github.com/goodluckforme");
+            }
+        ));
   }
 
   void showToast() {

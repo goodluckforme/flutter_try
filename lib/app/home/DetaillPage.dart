@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-class DetaillPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => new DetaillPageState();
-}
+class DetaillPage extends StatelessWidget {
+  final String url;
+  final String title;
 
-class DetaillPageState extends State<StatefulWidget> {
+  DetaillPage(this.title, this.url);
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.white,
+    return new WebviewScaffold(
+      //把头去掉更自然点
       appBar: new AppBar(
-        title: new Text("Detaill"),
+        title: new Text(title),
       ),
-      body: new Center(
-        child: new Text("我是Detail界面"),
-      ),
+      url: url,
+      withJavascript: true,
     );
   }
 }
