@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_demo/app/MainPage.dart';
 
 class LaunchPage extends StatefulWidget {
@@ -9,8 +10,8 @@ class LaunchPage extends StatefulWidget {
 }
 
 class _LaunchPage extends State<StatefulWidget> {
-  void jumpToMain() {
-//    Navigator.of(context).pop(true);
+  void jumpToMain() async {
+    //Navigator.of(context).pop(true);
     Navigator.of(context).push(new PageRouteBuilder(
         pageBuilder: (BuildContext context,
             Animation<double> animation,
@@ -31,9 +32,16 @@ class _LaunchPage extends State<StatefulWidget> {
   @override
   void initState() {
     super.initState();
-  
-    }
+
+    new Future.delayed(const Duration(seconds: 2), () {
+      //任务具体代码
+      jumpToMain();
+    });
   }
+
+  bool isPress = false;
+  int pressNum = 0;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -41,15 +49,92 @@ class _LaunchPage extends State<StatefulWidget> {
         title: new Text("启动页"),
         backgroundColor: Colors.pink,
       ),
-      backgroundColor: Colors.blue,
-      body: new Center(
-        child: new GestureDetector(
-          onTap: jumpToMain,
-          child: new Container(
-              color: Colors.red,
-              child: new Text("如果没有跳转,请点击我", textAlign: TextAlign.center)),
-        ),
-      ),
+      backgroundColor: Colors.white,
+      body: new Container(
+          decoration: new BoxDecoration(
+            image: new DecorationImage(
+                image: new AssetImage('images/ic_launcher.jpeg')),
+          ),
+          child: new Center(
+            child: new GestureDetector(
+              onTap: jumpToMain,
+              onDoubleTap: doubleClick,
+              child: new Container(
+                  alignment: Alignment.center,
+                  width: 200.0,
+                  height: 200.0,
+                  color: Colors.transparent,
+                  child: new Column(
+                    children: <Widget>[
+                      new Text("按钮点击次数r$pressNum"),
+                      new RaisedButton(
+                        child: new Text("双击LOGO进入首页"),
+                        textColor:
+                        pressNum % 2 == 0 ? Colors.blue : Colors.black,
+                        color:
+                        pressNum % 2 == 0 ? Colors.white : Colors.blue,
+//                      icon: isPress ? new Icon(Icons.sync) : new Icon(
+//                            Icons.alarm_on),
+                        onPressed: () {
+                          setState(() {
+                            isPress = !isPress;
+                            pressNum++;
+                          });
+                        },)
+                    ],
+                  )
+              ),
+            ),
+          )),
+    );
+  }
+
+//  @override
+//  Widget build(BuildContext context) {
+//    return new Scaffold(
+//      appBar: new AppBar(
+//        title: new Text('从本地获取图像'),
+//      ),
+//      body: new Center(
+//        child: new Container(
+//          decoration: new BoxDecoration(
+//            image: new DecorationImage(
+//                image: new AssetImage('images/ic_launcher.jpeg')),
+//          ),
+//        ),
+//      ),
+//    );
+//  }
+
+  Future<Null> doubleClick() async {
+    return showDialog<Null>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text('这是一个弹窗哦'),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: <Widget>[
+                new Text('点击确认进入首页'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('确定'),
+              onPressed: () {
+                // 一秒以后将任务添加至event队列
+                new Future.delayed(const Duration(seconds: 2), () {
+                  //任务具体代码
+                  jumpToMain();
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
