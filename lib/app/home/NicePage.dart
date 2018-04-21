@@ -94,9 +94,7 @@ class StateNicePage extends State<StatefulWidget> {
       //如果你遇到不符合条件的控件，请将其用可以滚动的控件（如ListView、PageView等）包装一下
       child: futureBuilder,
       onRefresh: () async {
-        setState(() {
-          getJSONData();
-        });
+        setState(() {});
       }, //onRefresh的回调必须是一个Future<Null>类型
     );
     return refreshIndicator;
