@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-class DetaillPage extends StatelessWidget {
+class DetailPage extends StatelessWidget {
   final String url;
   final String title;
 
-  DetaillPage(this.title, this.url);
+  DetailPage(this.title, this.url);
 
   @override
   Widget build(BuildContext context) {

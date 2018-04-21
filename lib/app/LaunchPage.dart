@@ -112,7 +112,7 @@ class _LaunchPage extends State<StatefulWidget> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return new AlertDialog(
-          title: new Text('这是一个弹窗哦'),
+          title: new Text('我是启动页'),
           content: new SingleChildScrollView(
             child: new ListBody(
               children: <Widget>[
