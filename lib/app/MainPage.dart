@@ -144,7 +144,8 @@ class MainPagePageState extends State<MainPage> {
     showDialog<Null>(
         context: context,
         child: new AlertDialog(
-            content: new Text("showDialog"),
+            content: new Text("皮一下很开心"),
+            title: new Text("皮一下很开心"),
             actions: <Widget>[
               new FlatButton(
                   onPressed: () {

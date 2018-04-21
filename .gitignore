@@ -12,3 +12,4 @@ packages
 ### Dart template
 # See https://www.dartlang.org/tools/private-files.html
 
+/android/local.properties
