@@ -9,14 +9,18 @@ class LaunchPage extends StatefulWidget {
   State<StatefulWidget> createState() => new _LaunchPage();
 }
 
-class _LaunchPage extends State<StatefulWidget> {
+class _LaunchPage extends State<StatefulWidget>
+    with SingleTickerProviderStateMixin {
+  bool isPress = true;
+  int countNum = 0;
+
   void jumpToMain() async {
-    //Navigator.of(context).pop(true);
+//    Navigator.of(context).pop();
     Navigator.of(context).push(new PageRouteBuilder(
         pageBuilder: (BuildContext context,
             Animation<double> animation,
             Animation<double> secondaryAnimation) {
-          return new MainPage("首页");
+          return new MainPage("登录");
         },
         transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
           return new FadeTransition(
@@ -32,60 +36,52 @@ class _LaunchPage extends State<StatefulWidget> {
   @override
   void initState() {
     super.initState();
+    loop();
+  }
 
+  void loop() {
     new Future.delayed(const Duration(seconds: 2), () {
-      //任务具体代码
-      jumpToMain();
+      if (countNum >= 3) {
+        jumpToMain();
+        countNum = 0;
+      }
+      else
+        setState(() {
+          countNum++;
+          loop();
+        });
     });
   }
 
-  bool isPress = false;
-  int pressNum = 0;
-
   @override
   Widget build(BuildContext context) {
+    var stack = new Stack(
+      children: <Widget>[
+        new Align(alignment: Alignment.topRight, child: new RaisedButton(
+          child: new Text("${3-countNum} 跳过"),
+          textColor:
+          isPress ? Colors.blue : Colors.black,
+          color:
+          isPress ? Colors.white : Colors.blue,
+          onPressed: () {
+            setState(() {
+              isPress = !isPress;
+              jumpToMain();
+            });
+          },),),
+      ],
+    );
+    var container = new Container(
+        padding: const EdgeInsets.all(35.0),
+        decoration: new BoxDecoration(
+          image: new DecorationImage(
+              image: new AssetImage('images/ic_launcher.jpeg')),
+        ),
+        child: stack
+    );
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("启动页"),
-        backgroundColor: Colors.pink,
-      ),
       backgroundColor: Colors.white,
-      body: new Container(
-          decoration: new BoxDecoration(
-            image: new DecorationImage(
-                image: new AssetImage('images/ic_launcher.jpeg')),
-          ),
-          child: new Center(
-            child: new GestureDetector(
-              onTap: jumpToMain,
-              onDoubleTap: doubleClick,
-              child: new Container(
-                  alignment: Alignment.center,
-                  width: 200.0,
-                  height: 200.0,
-                  color: Colors.transparent,
-                  child: new Column(
-                    children: <Widget>[
-                      new Text("按钮点击次数r$pressNum"),
-                      new RaisedButton(
-                        child: new Text("双击LOGO进入首页"),
-                        textColor:
-                        pressNum % 2 == 0 ? Colors.blue : Colors.black,
-                        color:
-                        pressNum % 2 == 0 ? Colors.white : Colors.blue,
-//                      icon: isPress ? new Icon(Icons.sync) : new Icon(
-//                            Icons.alarm_on),
-                        onPressed: () {
-                          setState(() {
-                            isPress = !isPress;
-                            pressNum++;
-                          });
-                        },)
-                    ],
-                  )
-              ),
-            ),
-          )),
+      body: container,
     );
   }
 
@@ -125,7 +121,7 @@ class _LaunchPage extends State<StatefulWidget> {
               child: new Text('确定'),
               onPressed: () {
                 // 一秒以后将任务添加至event队列
-                new Future.delayed(const Duration(seconds: 2), () {
+                new Future.delayed(const Duration(seconds: 1), () {
                   //任务具体代码
                   jumpToMain();
                 });
@@ -137,4 +133,5 @@ class _LaunchPage extends State<StatefulWidget> {
       },
     );
   }
+
 }

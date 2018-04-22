@@ -12,20 +12,32 @@ class FirstPage extends StatefulWidget {
 
 }
 
-const List<Page> _allPages = const <Page>[
-  const Page(icon: Icons.grade, text: 'All'),
-  const Page(icon: Icons.playlist_add, text: '福利'),
-  const Page(icon: Icons.check_circle, text: 'Android'),
-  const Page(icon: Icons.question_answer, text: 'IOS'),
-  const Page(icon: Icons.sentiment_very_satisfied, text: '休息视频'),
-  const Page(icon: Icons.camera, text: '前端'),
-  const Page(icon: Icons.assignment_late, text: '拓展视频'),
-  const Page(icon: Icons.assignment_turned_in, text: 'App'),
-  const Page(icon: Icons.group, text: '瞎推荐'),
-];
+//const List<Page> _allPages = const <Page>[
+//  const Page(icon: Icons.grade, text: 'all'),
+//  const Page(icon: Icons.favorite, text: '福利'),
+//  const Page(icon: Icons.android, text: 'Android'),
+//  const Page(icon: Icons.phone_iphone, text: 'iOS'),
+//  const Page(icon: Icons.new_releases, text: '休息视频'),
+//  const Page(icon: Icons.web, text: '前端'),
+//  const Page(icon: Icons.video_label, text: '拓展资源'),
+//  const Page(icon: Icons.assignment_turned_in, text: 'App'),
+//  const Page(icon: Icons.subject, text: '瞎推荐'),
+//];
 
 class FirstPageState extends State<StatefulWidget>
     with SingleTickerProviderStateMixin {
+
+  final List<NicePage> _allNicePages = <NicePage>[
+    NicePage(page: Page(icon: Icons.grade, text: 'all')),
+    NicePage(page: Page(icon: Icons.favorite, text: '福利')),
+    NicePage(page: Page(icon: Icons.android, text: 'Android')),
+    NicePage(page: Page(icon: Icons.phone_iphone, text: 'iOS')),
+    NicePage(page: Page(icon: Icons.new_releases, text: '休息视频')),
+    NicePage(page: Page(icon: Icons.web, text: '前端')),
+    NicePage(page: Page(icon: Icons.video_label, text: '拓展资源')),
+    NicePage(page: Page(icon: Icons.assignment_turned_in, text: 'App')),
+    NicePage(page: Page(icon: Icons.subject, text: '瞎推荐')),
+  ];
 
   TabController controller;
   final userName;
@@ -35,7 +47,7 @@ class FirstPageState extends State<StatefulWidget>
   @override
   void initState() {
     super.initState();
-    controller = new TabController(vsync: this, length: _allPages.length);
+    controller = new TabController(vsync: this, length: _allNicePages.length);
   }
 
   @override
@@ -63,16 +75,17 @@ class FirstPageState extends State<StatefulWidget>
                 ),
               )
           ),
-          tabs: _allPages.map((Page page) {
-            return new Tab(text: page.text, icon: new Icon(page.icon));
+          tabs: _allNicePages.map((NicePage page) {
+            return new Tab(
+                text: page.page.text, icon: new Icon(page.page.icon));
           }).toList(),
         ),
       ),
       body: new TabBarView(
-        children: _allPages.map((Page page) {
+        children: _allNicePages.map((NicePage page) {
           return new Container(
               padding: const EdgeInsets.all(5.0),
-              child: new NicePage(page: page)
+              child: page
           );
         }).toList(),
         controller: controller,
