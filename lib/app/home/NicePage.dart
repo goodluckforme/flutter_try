@@ -121,7 +121,7 @@ class StateNicePage extends State<StatefulWidget> {
                     if (detal > 0) {
                       print("================向下移动================");
                     } else {
-                      //所摸点长度 +滑动距离  = IistView的长度  说明到达顶部
+                      //所摸点长度 +滑动距离  = IistView的长度  说明到达底部
                       print("================向上移动================");
                       print(
                           "scrollController==滑动距离=======${(position - downY)}");
